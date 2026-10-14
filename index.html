@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- SEO & Brand Metadata -->
+  <title>VegieDrop | 🥬 টাটকা শাকসবজি, সরাসরি আপনার দুয়ারে</title>
+  <meta name="description" content="বাছাই করা ১০০% টাটকা খামারের শাকসবজি, কোল্ড-চেইন প্যাকেজিং ও দ্রুততম হোম ডেলিভারি।">
+  <meta name="theme-color" content="#063B5C">
+  
+  <!-- OpenGraph / Social Share Metadata -->
+  <meta property="og:title" content="VegieDrop | টাটকা শাকসবজি সরাসরি আপনার দুয়ারে">
+  <meta property="og:description" content="কলকাতার নির্ভরযোগ্য অনলাইন গ্রোসারি স্টোর।">
+  <meta property="og:type" content="website">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #F4FAFB;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Full-Screen Embedded Web App Frame */
+    #storeFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #F4FAFB;
+    }
+
+    /* Elegant Preloader */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #063B5C;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .brand-loader {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .brand-loader span {
+      color: #38C2D8;
+    }
+    .spinner {
+      width: 34px;
+      height: 34px;
+      border: 3.5px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #16B8A6;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    .loader-text {
+      font-size: 14px;
+      color: #CFE9EE;
+      margin-top: 14px;
+      font-weight: 500;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loaded #loader {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ব্র্যান্ডেড লোডিং স্ক্রিন -->
+  <div id="loader">
+    <div class="brand-loader">Vegie<span>Drop</span></div>
+    <div class="spinner"></div>
+    <div class="loader-text">🥬 টাটকা পণ্যের বাজার লোড হচ্ছে...</div>
+  </div>
+
+  <!-- Apps Script ফ্রেম -->
+  <iframe 
+    id="storeFrame" 
+    src="" 
+    allow="geolocation; camera; microphone; clipboard-write; payment" 
+    title="VegieDrop Storefront">
+  </iframe>
+
+  <script>
+    /**********************************************************************************
+     * ⚙️ CONFIGURATION: আপনার Google Apps Script Web App URL নিচে বসান
+     **********************************************************************************/
+    const APPS_SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyLTy-y4mKtf-bIlSiZ71O5hcnLVpuycEOhwA8vXBCsJly1q41cOFDdq7EPSMxrVoAFxw/exec";
+
+    // বর্তমান URL থেকে Query প্যারামিটার (যেমন: ?sku=FD-POT-JYT বা ?pay=1) ফ্রেমের ভেতরে ফরোয়ার্ড করা
+    const currentParams = window.location.search;
+    const targetUrl = APPS_SCRIPT_WEBAPP_URL + (currentParams ? (APPS_SCRIPT_WEBAPP_URL.includes('?') ? '&' : '?') + currentParams.slice(1) : '');
+
+    const iframe = document.getElementById('storeFrame');
+    iframe.src = targetUrl;
+
+    // আইফ্রেম পুরোপুরি লোড হলে লোডার স্ক্রিন সরানো
+    iframe.onload = function() {
+      document.body.classList.add('loaded');
+    };
+
+    // ফলব্যাক: ৩ সেকেন্ডের মধ্যে লোডার সরিয়ে দেওয়া
+    setTimeout(function() {
+      document.body.classList.add('loaded');
+    }, 3200);
+  </script>
+</body>
+</html>
